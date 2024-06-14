@@ -1,7 +1,11 @@
 'use client'
+import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/ReactToastify.min.css";
 
 interface LoginFormInputs{
     usernameOrEmail:string;
@@ -11,9 +15,25 @@ interface LoginFormInputs{
 function LoginPage() {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
     const [showPassword,setShowPassword] = useState(false);
+    const router = useRouter();
 
     const onSubmit: SubmitHandler<LoginFormInputs> = data => {
-        console.log(data);
+        axios.post('/api/users/login',data)
+        .then((res)=>{
+            console.log(res);
+            localStorage.setItem('next-auth',JSON.stringify(res.data));
+            router.back();
+        })
+        .catch((err)=>{
+            toast.error(err.response.data.error,{
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            })
+        })
     };
 
     return (
@@ -73,6 +93,7 @@ function LoginPage() {
                     </p>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     )
 }
