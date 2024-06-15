@@ -38,20 +38,28 @@ export default function Home() {
   }
 
   useEffect(()=>{
-    verifyAuthentication();
+    // verifyAuthentication();
   },[])
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="">
 
-      <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-        <h2>Hello To the Home Component</h2>
-        <div className="flex items-center justify-center">
+      <main className="flex flex-col w-[100vw] items-center justify-center min-h-screen bg-slate-900">
+        <h2 className="my-3 text-3xl font-serif font-bold text-white" >Hello To the Home Component</h2>
+        <div className="flex items-center justify-center gap-4">
             <button
             onClick={logout}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
             Log Out
+            </button>
+            <button
+            onClick={()=>{
+              router.push('/profile')
+            }}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+            Go to Profile
             </button>
         </div>
       </main>
