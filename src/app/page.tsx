@@ -61,6 +61,14 @@ export default function Home() {
             >
             Go to Profile
             </button>
+            <button
+            onClick={()=>{
+              router.push('/admin')
+            }}
+            className="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+            Admin Dashboard
+            </button>
         </div>
       </main>
 
