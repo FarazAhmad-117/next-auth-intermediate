@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
-function page({params}:{params:{id:string}}) {
+function IDPage({params}:{params:{id:string}}) {
     const router = useRouter();
 
     return (
@@ -24,4 +24,4 @@ function page({params}:{params:{id:string}}) {
     )
 }
 
-export default page
+export default IDPage
