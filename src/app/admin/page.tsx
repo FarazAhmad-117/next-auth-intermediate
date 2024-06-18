@@ -1,7 +1,7 @@
 'use client'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 
 interface User{
@@ -15,22 +15,23 @@ function Admin() {
     const [user,setUser] = useState<User>();
     const router = useRouter();
 
-    const verifyAdmin = async()=>{
+    const verifyAdmin = useCallback(async () => {
         let data = localStorage.getItem('next-admin');
-        data = await JSON.parse(data!);
-        if(!data){
+        if (data) {
+            data = JSON.parse(data);
+        }
+        if (!data) {
             router.push('/admin/login');
         }
-    }
-
-    const getUserData = async () => {
+    }, [router]);
+    
+    const getUserData = useCallback(async () => {
         let data = localStorage.getItem('next-auth');
-        console.log(data);
         if (data) {
-            const parsedData = await JSON.parse(data);
+            const parsedData = JSON.parse(data);
             setUser(parsedData.user);
         }
-    };
+    }, []);
 
 
     const getAllUsers = async()=>{
