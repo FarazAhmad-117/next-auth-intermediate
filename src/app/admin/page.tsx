@@ -49,7 +49,7 @@ function Admin() {
     useEffect(()=>{
         getUserData();
         verifyAdmin();
-    },[])
+    },[getUserData,verifyAdmin]);
 
     return (
         <div className="container mx-auto p-4" >
