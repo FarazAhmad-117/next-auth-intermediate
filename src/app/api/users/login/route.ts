@@ -22,7 +22,7 @@ export async function POST(req:NextRequest){
             return NextResponse.json({error:'Invalid Credentials'},{status:400});
         }
         const [accessToken,refreshToken] = await user.generateTokens();
-        const response = NextResponse.json({accessToken,refreshToken,id:user._id},{status:200});
+        const response = NextResponse.json({accessToken,refreshToken,user},{status:200});
         response.cookies.set("accessToken",accessToken,{
             httpOnly:true,
         })

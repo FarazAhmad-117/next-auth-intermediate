@@ -11,7 +11,7 @@ function Profile() {
         let data = localStorage.getItem('next-auth');
         if (data) {
         const parsedData = await JSON.parse(data);
-        setId(parsedData.id);
+        setId(parsedData.user._id);
         }
     };
 

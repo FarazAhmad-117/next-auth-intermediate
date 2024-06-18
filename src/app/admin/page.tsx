@@ -12,6 +12,7 @@ interface User{
 
 function Admin() {
     const [users , setUsers] = useState<[User]>();
+    const [user,setUser] = useState<User>();
     const router = useRouter();
 
     const verifyAdmin = async()=>{
@@ -21,6 +22,15 @@ function Admin() {
             router.push('/admin/login');
         }
     }
+
+    const getUserData = async () => {
+        let data = localStorage.getItem('next-auth');
+        console.log(data);
+        if (data) {
+            const parsedData = await JSON.parse(data);
+            setUser(parsedData.user);
+        }
+    };
 
 
     const getAllUsers = async()=>{
@@ -37,7 +47,7 @@ function Admin() {
 
 
     useEffect(()=>{
-        getAllUsers();
+        getUserData();
         verifyAdmin();
     },[])
 
@@ -54,8 +64,8 @@ function Admin() {
                 Logout
                 </button>
             </div>
-            <h1 className="text-2xl font-bold mb-4">User List</h1>
-            <table className="min-w-full bg-white border-collapse">
+            {/* <h1 className="text-2xl font-bold mb-4">User List</h1> */}
+            {/* <table className="min-w-full bg-white border-collapse">
                 <thead>
                     <tr>
                         <th className="py-2 px-4 border-b">ID</th>
@@ -72,7 +82,16 @@ function Admin() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
+            {
+                user && 
+                <div>
+                    <h2 className="text-2xl" >Here is your data</h2>
+                    <p className='text-lg' >ID : <span className='text-md' >{user?._id}</span></p>
+                    <p className='text-lg' >UserName : <span className='text-md' >{user?.username}</span></p>
+                    <p className='text-lg' >Email : <span className='text-md' >{user?.email}</span></p>
+                </div>
+            }
         </div>
     )
 }
